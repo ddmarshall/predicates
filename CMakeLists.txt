@@ -22,36 +22,40 @@ endif ()
 ################################################################################
 # Setup PREDICATES with version numbers
 ################################################################################
-math(EXPR PREDICATES_NUMBER_VERSION "10000*${PREDICATES_VERSION_MAJOR}+100*${PREDICATES_VERSION_MINOR}+${PREDICATES_VERSION_PATCH}")
+math(EXPR PREDICATES_NUMBER_VERSION "10000*${PREDICATES_VERSION_MAJOR}
+                                    +100*${PREDICATES_VERSION_MINOR}
+                                    +${PREDICATES_VERSION_PATCH}")
 
-configure_file(${PREDICATES_SOURCE_DIR}/cmake/predicates_versions.h.in ${PREDICATES_BINARY_DIR}/include/predicates/versions.h @ONLY)
+configure_file(${PREDICATES_SOURCE_DIR}/cmake/predicates_versions.h.in 
+               ${PREDICATES_BINARY_DIR}/include/predicates/versions.h @ONLY)
 
 include_directories(${PREDICATES_SOURCE_DIR}/include)
 include_directories(${PREDICATES_BINARY_DIR}/include)
+
+set(PREDICATES_LIBRARIES predicates)
 
 ################################################################################
 # Add subdirectories
 ################################################################################
 
-if (CPPTEST_FOUND)
-  # include the CTest framework
-  include(CTest)
-
-  # add the directory with all of the tests
-  add_subdirectory(tests)
-endif()
-
+add_subdirectory(src)
 add_subdirectory(examples)
 
-
-
+####if (CPPTEST_FOUND)
+####  # include the CTest framework
+####  include(CTest)
+####
+####  # add the directory with all of the tests
+####  add_subdirectory(tests)
+####endif()
 
 ################################################################################
 # Configure doxygen
 ################################################################################
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
-  configure_file(${PREDICATES_SOURCE_DIR}/cmake/Doxyfile.in ${PREDICATES_BINARY_DIR}/Doxyfile @ONLY)
+  configure_file(${PREDICATES_SOURCE_DIR}/cmake/Doxyfile.in 
+                 ${PREDICATES_BINARY_DIR}/Doxyfile @ONLY)
   add_custom_target(doc
                     COMMAND ${DOXYGEN_EXECUTABLE} ${PREDICATES_BINARY_DIR}/Doxyfile
                     SOURCES ${PREDICATES_BINARY_DIR}/Doxyfile

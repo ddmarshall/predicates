@@ -5,14 +5,11 @@
 # project root for full license information.
 ################################################################################
 
-project(PREDICATES_EXAMPLES)
+project(PREDICATES_LIBRARY)
 
-# include common example header files
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# add the predicates library
+set (PREDICATES_SOURCE ${PREDICATES_SOURCE_DIR}/src/predicates.c)
+set (PREDICATES_HEADER ${PREDICATES_SOURCE_DIR}/include/predicates/predicates.h)
 
-# set what libraries need to be used
-set(_PREDICATES_EXAMPLES_LIBRARIES_LIST "${PREDICATES_LIBRARIES}")
-
-add_subdirectory(orient2d)
-#####add_subdirectory(util)
+add_library(${PREDICATES_LIBRARIES} ${PREDICATES_SOURCE} ${PREDICATES_HEADER})
 
